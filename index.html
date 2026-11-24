@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ Thị Ánh Ngọc | Portfolio Cá Nhân</title>
+    <!-- Font Inter & Playfair Display từ Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        coral: {
+                            100: '#FFEBEA',
+                            300: '#FFAEA8',
+                            500: '#FF6B6B',
+                            600: '#EE5253'
+                        },
+                        mint: {
+                            100: '#E6F9F5',
+                            300: '#9AE6B4',
+                            500: '#48BB78',
+                            600: '#38A169'
+                        },
+                        amber: {
+                            100: '#FEFCBF',
+                            300: '#FBD38D',
+                            500: '#ED8936'
+                        },
+                        cream: '#FAF8F5',
+                        darkbg: '#121824',
+                        darkcard: '#1E293B'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom Customizations & Scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FFAEA8;
+            border-radius: 9999px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #48BB78;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .pastel-gradient {
+            background: linear-gradient(135deg, #FFEBEA 0%, #E6F9F5 50%, #FEFCBF 100%);
+        }
+        .dark .pastel-gradient {
+            background: linear-gradient(135deg, #1E1B2E 0%, #112727 50%, #2A2415 100%);
+        }
+    </style>
+</head>
+<body class="bg-cream dark:bg-darkbg text-slate-800 dark:text-slate-100 font-sans transition-colors duration-300">
+
+    <!-- HEADER / NAVBAR -->
+    <header class="fixed top-0 left-0 right-0 z-40 glass-card transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#" class="font-heading font-extrabold text-2xl tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
+                <span class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-coral-500 to-amber-300 flex items-center justify-center text-white shadow-md shadow-coral-500/20">N</span>
+                <span>Ánh Ngọc<span class="text-coral-500">.</span></span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex items-center gap-8 font-medium text-sm">
+                <a href="#about" class="hover:text-coral-500 transition-colors">Về tôi</a>
+                <a href="#skills" class="hover:text-coral-500 transition-colors">Kỹ năng</a>
+                <a href="#projects" class="hover:text-coral-500 transition-colors">Dự án</a>
+                <a href="#reading" class="hover:text-coral-500 transition-colors">Góc đọc sách</a>
+                <a href="#contact" class="hover:text-coral-500 transition-colors">Liên hệ</a>
+            </nav>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center gap-3">
+                <button id="themeToggle" class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all flex items-center justify-center">
+                    <i class="fa-solid fa-moon dark:hidden text-lg"></i>
+                    <i class="fa-solid fa-sun hidden dark:block text-amber-300 text-lg"></i>
+                </button>
+                
+                <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-coral-500 hover:bg-coral-600 text-white font-medium text-sm transition-all shadow-lg shadow-coral-500/25 hover:shadow-coral-500/40 hover:-translate-y-0.5">
+                    <span>Liên hệ ngay</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobileMenu" class="hidden md:hidden px-4 pt-2 pb-6 space-y-3 bg-white dark:bg-darkcard border-t border-slate-100 dark:border-slate-800 shadow-xl">
+            <a href="#about" class="block px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 font-medium">Về tôi</a>
+            <a href="#skills" class="block px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 font-medium">Kỹ năng</a>
+            <a href="#projects" class="block px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 font-medium">Dự án</a>
+            <a href="#reading" class="block px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 font-medium">Góc đọc sách</a>
+            <a href="#contact" class="block px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 font-medium">Liên hệ</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="min-h-screen pt-28 pb-16 flex items-center relative overflow-hidden pastel-gradient">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/70 dark:bg-slate-800/80 border border-coral-300 dark:border-slate-700 shadow-sm">
+                        <span class="w-2 h-2 rounded-full bg-coral-500 animate-ping"></span>
+                        <span class="text-xs font-semibold text-coral-600 dark:text-coral-300 tracking-wide uppercase">Học sinh Chuyên Bến Tre</span>
+                    </div>
+
+                    <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
+                        Xin chào, mình là <br class="hidden sm:inline">
+                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-coral-500 via-amber-500 to-mint-500">Hồ Thị Ánh Ngọc</span>
+                    </h1>
+
+                    <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed mx-auto lg:mx-0">
+                        Đam mê sáng tạo công nghệ, thiết kế giao diện & theo đuổi những ý tưởng đổi mới độc đáo. Luôn học hỏi để tạo ra giá trị mới mỗi ngày!
+                    </p>
+
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#projects" class="px-7 py-3.5 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold text-sm hover:opacity-90 transition-all shadow-xl hover:-translate-y-0.5">
+                            Khám phá dự án <i class="fa-solid fa-arrow-trend-up ml-2"></i>
+                        </a>
+                        <a href="#about" class="px-7 py-3.5 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white font-semibold text-sm hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all shadow-sm">
+                            Tìm hiểu về mình
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Visual Card -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="relative w-full max-w-md">
+                        <!-- Decorative background shapes -->
+                        <div class="absolute top-0 -left-4 w-72 h-72 bg-coral-300/40 rounded-full blur-3xl"></div>
+                        <div class="absolute bottom-0 -right-4 w-72 h-72 bg-mint-300/40 rounded-full blur-3xl"></div>
+
+                        <div class="relative glass-card rounded-3xl p-6 shadow-2xl space-y-6">
+                            <div class="flex items-center gap-4">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="Ánh Ngọc" class="w-20 h-20 rounded-2xl object-cover ring-4 ring-coral-100 dark:ring-slate-700 shadow-md" />
+                                <div>
+                                    <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white">Hồ Thị Ánh Ngọc</h3>
+                                    <p class="text-sm text-slate-500 dark:text-slate-400">Class of 2026 • Specialized Student</p>
+                                    <div class="flex gap-2 mt-2">
+                                        <span class="px-2.5 py-0.5 rounded-md text-xs font-medium bg-coral-100 text-coral-600 dark:bg-coral-900/40 dark:text-coral-300">Creative</span>
+                                        <span class="px-2.5 py-0.5 rounded-md text-xs font-medium bg-mint-100 text-mint-600 dark:bg-mint-900/40 dark:text-mint-300">Tech Enthusiast</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="p-4 rounded-2xl bg-white/60 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/50 space-y-3 text-sm">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-slate-500 dark:text-slate-400"><i class="fa-solid fa-graduation-cap text-coral-500 mr-2"></i>Trường:</span>
+                                    <span class="font-semibold text-slate-800 dark:text-slate-200">THPT Chuyên Bến Tre</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-slate-500 dark:text-slate-400"><i class="fa-solid fa-location-dot text-mint-500 mr-2"></i>Vị trí:</span>
+                                    <span class="font-semibold text-slate-800 dark:text-slate-200">Bến Tre, Việt Nam</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-slate-500 dark:text-slate-400"><i class="fa-solid fa-heart text-amber-500 mr-2"></i>Sở thích:</span>
+                                    <span class="font-semibold text-slate-800 dark:text-slate-200">UI/UX, Đọc sách, Bơi lội</span>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-2">
+                                <span class="text-xs font-medium text-slate-400">Trạng thái hiện tại</span>
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Đang học tập & Nghiên cứu
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT ME SECTION -->
+    <section id="about" class="py-24 bg-white dark:bg-darkbg transition-colors">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-coral-500 font-semibold text-sm uppercase tracking-wider">Hành trình cá nhân</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mt-2">Về Tôi</h2>
+                <div class="w-12 h-1 bg-coral-500 mx-auto rounded-full mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="p-8 rounded-3xl bg-cream dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-14 h-14 rounded-2xl bg-coral-100 dark:bg-coral-900/30 text-coral-500 flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-user-graduate"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white mb-3">Học Vấn & Môi Trường</h3>
+                    <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                        Hiện tại mình là học sinh trường THPT Chuyên Bến Tre. Môi trường năng động giúp mình rèn luyện tư duy phản biện, kỷ luật và tinh thần chủ động trong công việc.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="p-8 rounded-3xl bg-cream dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-14 h-14 rounded-2xl bg-mint-100 dark:bg-mint-900/30 text-mint-500 flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white mb-3">Đam Mê Sáng Tạo</h3>
+                    <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                        Yêu thích sự giao thoa giữa nghệ thuật thị giác và công nghệ. Mình luôn mong muốn tạo ra những giải pháp thiết kế đẹp mắt, tối ưu trải nghiệm người dùng.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="p-8 rounded-3xl bg-cream dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-14 h-14 rounded-2xl bg-amber-100 dark:bg-amber-900/30 text-amber-500 flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-compass"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white mb-3">Phong Cách Sống</h3>
+                    <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                        Luôn giữ tinh thần tích cực, cởi mở. Bên cạnh giờ học, mình dành thời gian đọc sách để mở rộng thế giới quan và luyện tập bơi lội rèn luyện sức khỏe.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section id="skills" class="py-24 bg-slate-50 dark:bg-darkcard/50 transition-colors">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-mint-500 font-semibold text-sm uppercase tracking-wider">Năng lực cốt lõi</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mt-2">Kỹ Năng & Điểm Nổi Bật</h2>
+                <div class="w-12 h-1 bg-mint-500 mx-auto rounded-full mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Skill 1 -->
+                <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-coral-100 dark:bg-coral-900/30 text-coral-500 flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-palette"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-900 dark:text-white">Thiết Kế & Media</h4>
+                    </div>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">Figma, UI/UX Layout, Canva Pro, Sáng tạo Visual Content</p>
+                    <div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                        <div class="bg-coral-500 h-full w-[85%] rounded-full"></div>
+                    </div>
+                </div>
+
+                <!-- Skill 2 -->
+                <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-mint-100 dark:bg-mint-900/30 text-mint-500 flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-900 dark:text-white">Tư Duy Logic</h4>
+                    </div>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">HTML5/CSS3 cơ bản, C++ thuật toán, Giải quyết vấn đề</p>
+                    <div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                        <div class="bg-mint-500 h-full w-[80%] rounded-full"></div>
+                    </div>
+                </div>
+
+                <!-- Skill 3 -->
+                <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/30 text-amber-500 flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-900 dark:text-white">Quản Lý Dự Án</h4>
+                    </div>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">Làm việc nhóm, Lập kế hoạch, Thuyết trình ấn tượng</p>
+                    <div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                        <div class="bg-amber-500 h-full w-[90%] rounded-full"></div>
+                    </div>
+                </div>
+
+                <!-- Skill 4 -->
+                <div class="p-6 rounded-2xl bg-white dark:bg-darkcard border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 text-indigo-500 flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-language"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-900 dark:text-white">Ngoại Ngữ</h4>
+                    </div>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">Tiếng Anh Giao Tiếp & Học Thuật, Đọc hiểu tài liệu</p>
+                    <div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                        <div class="bg-indigo-500 h-full w-[88%] rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO / DỰ ÁN SECTION -->
+    <section id="projects" class="py-24 bg-white dark:bg-darkbg transition-colors">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-amber-500 font-semibold text-sm uppercase tracking-wider">Sản phẩm nổi bật</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mt-2">Dự Án Cá Nhân & Học Thuật</h2>
+                <div class="w-12 h-1 bg-amber-500 mx-auto rounded-full mt-4"></div>
+            </div>
+
+            <!-- Category Filter -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12">
+                <button class="filter-btn active px-5 py-2.5 rounded-full text-sm font-semibold bg-slate-900 text-white dark:bg-white dark:text-slate-900 transition-all shadow-md" data-filter="all">Tất cả</button>
+                <button class="filter-btn px-5 py-2.5 rounded-full text-sm font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all" data-filter="web">Thiết kế & Website</button>
+                <button class="filter-btn px-5 py-2.5 rounded-full text-sm font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all" data-filter="academic">Học Thuật</button>
+                <button class="filter-btn px-5 py-2.5 rounded-full text-sm font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all" data-filter="media">Truyền Thông</button>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projectsGrid">
+                
+                <!-- Project Card 1 -->
+                <div class="project-card group rounded-3xl bg-cream dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300" data-category="web">
+                    <div class="relative overflow-hidden h-52">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" alt="Du lịch Bến Tre" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <span class="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold bg-white/90 dark:bg-slate-900/90 text-coral-600 backdrop-blur-md">Website</span>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <h3 class="font-heading font-bold text-xl text-slate-900 dark:text-white group-hover:text-coral-500 transition-colors">Web Du Lịch Bến Tre</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 line-clamp-2">Giao diện giới thiệu văn hóa, ẩm thực dừa và địa điểm du lịch sinh thái đặc sắc của Bến Tre.</p>
+                        <div class="pt-2 flex items-center justify-between">
+                            <span class="text-xs text-slate-400">Figma • HTML/CSS</span>
+                            <button onclick="openModal('project1')" class="text-sm font-semibold text-coral-500 hover:text-coral-600 flex items-center gap-1">Chi tiết <i class="fa-solid fa-chevron-right text-xs"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="project-card group rounded-3xl bg-cream dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300" data-category="media">
+                    <div class="relative overflow-hidden h-52">
+                        <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80" alt="Visual Storyboard" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <span class="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold bg-white/90 dark:bg-slate-900/90 text-mint-600 backdrop-blur-md">Visual Story</span>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <h3 class="font-heading font-bold text-xl text-slate-900 dark:text-white group-hover:text-mint-500 transition-colors">Storyboard "Chiếc Lá Cuối Cùng"</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 line-clamp-2">Dự án chuyển thể tác phẩm văn học sang hình thức minh họa Visual Storyboard hiện đại.</p>
+                        <div class="pt-2 flex items-center justify-between">
+                            <span class="text-xs text-slate-400">Canva • Photoshop</span>
+                            <button onclick="openModal('project2')" class="text-sm font-semibold text-mint-500 hover:text-mint-600 flex items-center gap-1">Chi tiết <i class="fa-solid fa-chevron-right text-xs"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div class="project-card group rounded-3xl bg-cream dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300" data-category="academic">
+                    <div class="relative overflow-hidden h-52">
+                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80" alt="Truyền thông sức khỏe" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <span class="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold bg-white/90 dark:bg-slate-900/90 text-amber-600 backdrop-blur-md">Dự án cộng đồng</span>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <h3 class="font-heading font-bold text-xl text-slate-900 dark:text-white group-hover:text-amber-500 transition-colors">Chuyên Đề Sức Khỏe Học Đường</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 line-clamp-2">Chuỗi infographic và bài viết tuyên truyền nâng cao sức khỏe tinh thần cho học sinh THPT.</p>
+                        <div class="pt-2 flex items-center justify-between">
+                            <span class="text-xs text-slate-400">Nghiên cứu • Content</span>
+                            <button onclick="openModal('project3')" class="text-sm font-semibold text-amber-500 hover:text-amber-600 flex items-center gap-1">Chi tiết <i class="fa-solid fa-chevron-right text-xs"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- READING CORNER SECTION -->
+    <section id="reading" class="py-24 bg-slate-50 dark:bg-darkcard/50 transition-colors">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-coral-500 font-semibold text-sm uppercase tracking-wider">Cảm hứng & Tri thức</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mt-2">Góc Đọc Sách Cá Nhân</h2>
+                <div class="w-12 h-1 bg-coral-500 mx-auto rounded-full mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Book Card 1 -->
+                <div class="p-6 rounded-3xl bg-white dark:bg-darkcard border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-coral-100 dark:bg-coral-900/30 text-coral-500 flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                        <h4 class="font-heading font-bold text-lg text-slate-900 dark:text-white">"Khéo Ăn Nói Sẽ Có Được Thiên Hạ"</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 italic">"Giao tiếp chân thành là chìa khóa mở ra mọi mối quan hệ tốt đẹp trong cuộc sống."</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-xs text-slate-400">
+                        <span>Tác giả: Trác Nhã</span>
+                        <span class="text-amber-500"><i class="fa-solid fa-star"></i> 4.8/5</span>
+                    </div>
+                </div>
+
+                <!-- Book Card 2 -->
+                <div class="p-6 rounded-3xl bg-white dark:bg-darkcard border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-mint-100 dark:bg-mint-900/30 text-mint-500 flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+                        <h4 class="font-heading font-bold text-lg text-slate-900 dark:text-white">"Tư Duy Nhanh Và Chậm"</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 italic">"Hiểu về cách não bộ đưa ra quyết định giúp ta tư duy logic và sáng suốt hơn."</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-xs text-slate-400">
+                        <span>Tác giả: Daniel Kahneman</span>
+                        <span class="text-amber-500"><i class="fa-solid fa-star"></i> 4.9/5</span>
+                    </div>
+                </div>
+
+                <!-- Book Card 3 -->
+                <div class="p-6 rounded-3xl bg-white dark:bg-darkcard border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-900/30 text-amber-500 flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-seedling"></i>
+                        </div>
+                        <h4 class="font-heading font-bold text-lg text-slate-900 dark:text-white">"Tuổi Trẻ Đáng Giá Bao Nhiêu"</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 italic">"Học hỏi không ngừng, sống hết mình với đam mê để tuổi trẻ không trôi qua hoãng phí."</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-xs text-slate-400">
+                        <span>Tác giả: Rosie Nguyễn</span>
+                        <span class="text-amber-500"><i class="fa-solid fa-star"></i> 5.0/5</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="py-24 bg-white dark:bg-darkbg transition-colors">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <div class="lg:col-span-5 space-y-6">
+                    <div>
+                        <span class="text-coral-500 font-semibold text-sm uppercase tracking-wider">Kết nối</span>
+                        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mt-2">Liên Hệ Với Mình</h2>
+                        <div class="w-12 h-1 bg-coral-500 rounded-full mt-4"></div>
+                    </div>
+                    
+                    <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                        Bạn có ý tưởng dự án mới, muốn trao đổi học thuật hoặc đơn giản là chào nhau một tiếng? Đừng ngần ngại gửi tin nhắn cho mình nhé!
+                    </p>
+
+                    <div class="space-y-4 pt-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-coral-100 text-coral-500 dark:bg-slate-800 flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-400">Email cá nhân</p>
+                                <p class="text-sm font-semibold text-slate-800 dark:text-slate-200">anhngoc.chuyenbentre@gmail.com</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-mint-100 text-mint-500 dark:bg-slate-800 flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-400">Trường học</p>
+                                <p class="text-sm font-semibold text-slate-800 dark:text-slate-200">THPT Chuyên Bến Tre, Bến Tre</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 flex gap-4">
+                        <a href="#" class="w-11 h-11 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-coral-500 hover:text-white dark:hover:bg-coral-500 text-slate-600 dark:text-slate-300 transition-all flex items-center justify-center text-lg">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-11 h-11 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-coral-500 hover:text-white dark:hover:bg-coral-500 text-slate-600 dark:text-slate-300 transition-all flex items-center justify-center text-lg">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                        <a href="#" class="w-11 h-11 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-coral-500 hover:text-white dark:hover:bg-coral-500 text-slate-600 dark:text-slate-300 transition-all flex items-center justify-center text-lg">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="lg:col-span-7">
+                    <form id="contactForm" class="p-8 rounded-3xl bg-cream dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800 space-y-6 shadow-sm">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-2">Họ và Tên</label>
+                                <input type="text" id="name" required placeholder="Nhập tên của bạn..." class="w-full px-4 py-3 rounded-xl bg-white dark:bg-darkcard border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-coral-500 transition-all text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-2">Email Liên Hệ</label>
+                                <input type="email" id="email" required placeholder="email@example.com" class="w-full px-4 py-3 rounded-xl bg-white dark:bg-darkcard border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-coral-500 transition-all text-sm">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-2">Lời Nhắn</label>
+                            <textarea id="message" rows="4" required placeholder="Nhập nội dung lời nhắn..." class="w-full px-4 py-3 rounded-xl bg-white dark:bg-darkcard border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-coral-500 transition-all text-sm resize-none"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-3.5 rounded-xl bg-coral-500 hover:bg-coral-600 text-white font-semibold text-sm transition-all shadow-lg shadow-coral-500/25">
+                            Gửi Tin Nhắn <i class="fa-solid fa-paper-plane ml-2"></i>
+                        </button>
+
+                        <div id="formStatus" class="hidden p-4 rounded-xl text-center text-sm font-medium"></div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-8 bg-slate-900 text-slate-400 text-xs border-t border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 text-center space-y-2">
+            <p>© 2026 Hồ Thị Ánh Ngọc. Thiết kế & Xây dựng với tinh thần sáng tạo.</p>
+            <p class="text-slate-500">THPT Chuyên Bến Tre • Portfolio Cá Nhân</p>
+        </div>
+    </footer>
+
+    <!-- MODAL POPUP (CHO CHI TIẾT DỰ ÁN) -->
+    <div id="projectModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+        <div class="glass-card max-w-2xl w-full rounded-3xl p-6 sm:p-8 space-y-6 relative max-h-[90vh] overflow-y-auto bg-white dark:bg-darkcard shadow-2xl">
+            <button onclick="closeModal()" class="absolute top-6 right-6 w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 flex items-center justify-center hover:bg-slate-200 transition-all">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div id="modalContent" class="space-y-4">
+                <!-- Nội dung động sẽ được chèn qua JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT THUẦN XỬ LÝ TƯƠNG TÁC -->
+    <script>
+        // 1. Chế độ Light / Dark Mode Toggle
+        const themeToggleBtn = document.getElementById('themeToggle');
+        
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // 2. Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 3. Bộ lọc Dự án (Project Filtering)
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('active', 'bg-slate-900', 'text-white', 'dark:bg-white', 'dark:text-slate-900');
+                    b.classList.add('bg-slate-100', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');
+                });
+
+                btn.classList.add('active', 'bg-slate-900', 'text-white', 'dark:bg-white', 'dark:text-slate-900');
+                btn.classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');
+
+                const filter = btn.getAttribute('data-filter');
+
+                projectCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // 4. Modal Popup Chi Tiết Dự Án
+        const modal = document.getElementById('projectModal');
+        const modalContent = document.getElementById('modalContent');
+
+        const projectDetails = {
+            project1: {
+                title: "Website Du Lịch Bến Tre",
+                category: "Website & UI/UX Design",
+                image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+                description: "Dự án thiết kế giao diện giới thiệu nét đẹp xứ Dừa Bến Tre. Trang web bao gồm các mục trải nghiệm văn hóa, ẩm thực đặc sản và bản đồ tương tác các điểm du lịch nổi tiếng.",
+                tech: "Figma, HTML5, Tailwind CSS, JavaScript",
+                link: "#"
+            },
+            project2: {
+                title: "Storyboard Visual 'Chiếc Lá Cuối Cùng'",
+                category: "Media & Nghệ Thuật Visual",
+                image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+                description: "Bộ tranh minh họa số và minh họa nhân vật tái hiện tác phẩm 'Chiếc lá cuối cùng' với góc nhìn trẻ trung, giàu cảm xúc và đầy tính nghệ thuật.",
+                tech: "Canva Pro, Adobe Photoshop, Procreate",
+                link: "#"
+            },
+            project3: {
+                title: "Chuyên Đề Sức Khỏe Học Đường",
+                category: "Dự Án Học Thuật & Cộng Đồng",
+                image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80",
+                description: "Chiến dịch truyền thông nội bộ nhằm nâng cao nhận thức về quản lý căng thẳng (Stress Management) cho học sinh THPT trong các kỳ thi quan trọng.",
+                tech: "Nghiên cứu tài liệu, Thiết kế Infographic, Content Writing",
+                link: "#"
+            }
+        };
+
+        function openModal(projectId) {
+            const data = projectDetails[projectId];
+            if (!data) return;
+
+            modalContent.innerHTML = `
+                <div class="rounded-2xl overflow-hidden h-60">
+                    <img src="${data.image}" class="w-full h-full object-cover" alt="${data.title}">
+                </div>
+                <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-coral-100 text-coral-600 dark:bg-coral-900/30 dark:text-coral-300">${data.category}</span>
+                <h3 class="font-heading font-bold text-2xl text-slate-900 dark:text-white">${data.title}</h3>
+                <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">${data.description}</p>
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800 text-xs text-slate-500 dark:text-slate-400">
+                    <strong>Công cụ / Công nghệ:</strong> ${data.tech}
+                </div>
+            `;
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+        }
+
+        // Đóng Modal khi bấm ra ngoài
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // 5. Form Liên Hệ
+        const contactForm = document.getElementById('contactForm');
+        const formStatus = document.getElementById('formStatus');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Giả lập gửi thành công
+            formStatus.classList.remove('hidden', 'bg-red-100', 'text-red-700');
+            formStatus.classList.add('bg-emerald-100', 'text-emerald-700', 'dark:bg-emerald-900/30', 'dark:text-emerald-300');
+            formStatus.innerHTML = '<i class="fa-solid fa-circle-check mr-2"></i> Cảm ơn bạn! Tin nhắn đã được gửi thành công.';
+
+            contactForm.reset();
+
+            setTimeout(() => {
+                formStatus.classList.add('hidden');
+            }, 4000);
+        });
+    </script>
+</body>
+</html>
