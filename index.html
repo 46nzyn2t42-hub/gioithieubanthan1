@@ -1,431 +1,887 @@
 <!DOCTYPE html>
-<html lang="vi" class="scroll-smooth">
+<html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hồ Thị Ánh Ngọc | Personal Portfolio</title>
-    <meta name="description" content="Trang web giới thiệu bản thân của Hồ Thị Ánh Ngọc - Học sinh lớp 11T1, Trường THPT Chuyên Bến Tre.">
-    
-    <!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        cream: '#FAF9F6',
-                        charcoal: '#1A1A1A',
-                        champagne: '#C5A880',
-                        champagneDark: '#B0926A',
-                        darkBg: '#121212',
-                        darkCard: '#1C1C1C',
-                        darkBorder: '#2C2C2C'
-                    },
-                    fontFamily: {
-                        serif: ['"Playfair Display"', 'serif'],
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hồ Thị Ánh Ngọc — Personal Portfolio</title>
+  <!-- Google Fonts: Playfair Display (Sang trọng) & Plus Jakarta Sans (Hiện đại, tối giản) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-primary: #FAFAFA;
+      --bg-secondary: #F3F3F5;
+      --surface: #FFFFFF;
+      --text-main: #111111;
+      --text-muted: #666666;
+      --text-light: #999999;
+      --border-subtle: rgba(17, 17, 17, 0.08);
+      --accent: #1E293B;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden;
+    }
+
+    /* Thanh điều hướng cố định */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 1.5rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      background: rgba(250, 250, 250, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
+      transition: var(--transition);
+    }
+
+    .logo {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2.5rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      position: relative;
+      padding-bottom: 4px;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--text-main);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 1.5px;
+      background-color: var(--text-main);
+      transition: width 0.3s ease;
+    }
+
+    nav a.active::after,
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Chấm điều hướng bên phải */
+    .slide-dots {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      z-index: 100;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: rgba(17, 17, 17, 0.2);
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+    }
+
+    .dot.active {
+      background-color: var(--text-main);
+      transform: scale(1.5);
+    }
+
+    /* Container cuộn từng Slide */
+    .slides-container {
+      height: 100vh;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
+
+    .slides-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    section.slide {
+      height: 100vh;
+      width: 100%;
+      scroll-snap-align: start;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem 4rem 3rem;
+      position: relative;
+    }
+
+    .container {
+      max-width: 1120px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* Hiệu ứng xuất hiện nội dung */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .slide.in-view .reveal {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+
+    /* ================= SLIDE 1: HERO ================= */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.85fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .eyebrow {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+      display: inline-block;
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.75rem, 5vw, 4.25rem);
+      font-weight: 500;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      color: var(--text-main);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .hero-meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--text-muted);
+      max-width: 500px;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+
+    .btn-minimal {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.9rem 1.8rem;
+      background-color: var(--text-main);
+      color: #FFFFFF;
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      border-radius: 100px;
+      transition: var(--transition);
+    }
+
+    .btn-minimal:hover {
+      background-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(17, 17, 17, 0.12);
+    }
+
+    .portrait-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 380px;
+      aspect-ratio: 3 / 4;
+      margin-left: auto;
+      border-radius: 20px;
+      overflow: hidden;
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.06);
+    }
+
+    .portrait-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s ease;
+    }
+
+    .portrait-wrapper:hover img {
+      transform: scale(1.03);
+    }
+
+    /* ================= SLIDE 2: HỌC VẤN ================= */
+    .slide-edu {
+      background-color: var(--bg-secondary);
+    }
+
+    .section-header {
+      margin-bottom: 3rem;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 3.5vw, 2.75rem);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    .edu-card {
+      background: var(--surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 24px;
+      padding: 3.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 3rem;
+      align-items: center;
+      transition: var(--transition);
+    }
+
+    .edu-card:hover {
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
+      transform: translateY(-3px);
+    }
+
+    .edu-badge {
+      display: inline-block;
+      padding: 0.45rem 1rem;
+      background: var(--bg-secondary);
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .edu-school {
+      font-family: var(--font-serif);
+      font-size: 1.85rem;
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+
+    .edu-class {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .edu-details {
+      border-left: 1px solid var(--border-subtle);
+      padding-left: 3rem;
+    }
+
+    .edu-details p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+      font-weight: 300;
+      margin-bottom: 1.5rem;
+    }
+
+    .edu-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .tag {
+      padding: 0.5rem 1.1rem;
+      border: 1px solid var(--border-subtle);
+      border-radius: 100px;
+      font-size: 0.85rem;
+      color: var(--text-main);
+      background: var(--bg-primary);
+    }
+
+    /* ================= SLIDE 3: SỞ THÍCH ================= */
+    .hobbies-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1.5rem;
+    }
+
+    .hobby-card {
+      background: var(--surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Bento layout: 3 thẻ hàng trên (mỗi thẻ 2 cột), 2 thẻ hàng dưới (mỗi thẻ 3 cột) */
+    .hobby-card:nth-child(1),
+    .hobby-card:nth-child(2),
+    .hobby-card:nth-child(3) {
+      grid-column: span 2;
+    }
+
+    .hobby-card:nth-child(4),
+    .hobby-card:nth-child(5) {
+      grid-column: span 3;
+    }
+
+    .hobby-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(17, 17, 17, 0.25);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.04);
+    }
+
+    .hobby-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--bg-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      color: var(--text-main);
+    }
+
+    .hobby-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .hobby-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    /* ================= SLIDE 4: LIÊN HỆ ================= */
+    .slide-contact {
+      background-color: var(--bg-secondary);
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .contact-wrapper {
+      margin: auto 0;
+      text-align: center;
+      max-width: 720px;
+    }
+
+    .contact-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 4vw, 3.25rem);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    .contact-subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      font-weight: 300;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+
+    .info-summary {
+      display: inline-flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem 2.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border-subtle);
+      padding: 1.25rem 2.25rem;
+      border-radius: 16px;
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+    }
+
+    .info-summary div strong {
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .info-summary div span {
+      color: var(--text-muted);
+    }
+
+    .email-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border-subtle);
+      padding: 0.75rem 0.75rem 0.75rem 1.5rem;
+      border-radius: 100px;
+      margin-bottom: 2rem;
+      transition: var(--transition);
+    }
+
+    .email-box:hover {
+      border-color: var(--text-main);
+    }
+
+    .email-text {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    .btn-copy {
+      padding: 0.55rem 1.2rem;
+      border-radius: 100px;
+      border: none;
+      background: var(--text-main);
+      color: #FFFFFF;
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-copy:hover {
+      background: var(--accent);
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 100px;
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .social-btn:hover {
+      background: var(--text-main);
+      color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+
+    footer {
+      width: 100%;
+      max-width: 1120px;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    .back-top {
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    /* Responsive cho thiết bị di động & máy tính bảng */
+    @media (max-width: 900px) {
+      header {
+        padding: 1.25rem 1.5rem;
+      }
+      nav ul {
+        gap: 1.25rem;
+      }
+      nav a {
+        font-size: 0.75rem;
+      }
+      section.slide {
+        padding: 5.5rem 1.5rem 2rem;
+        height: auto;
+        min-height: 100vh;
+      }
+      html, body, .slides-container {
+        overflow-y: auto;
+        scroll-snap-type: none;
+      }
+      .slide-dots {
+        display: none;
+      }
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        text-align: center;
+      }
+      .hero-meta {
+        justify-content: center;
+      }
+      .hero-desc {
+        margin: 0 auto 2rem;
+      }
+      .portrait-wrapper {
+        max-width: 280px;
+        margin: 0 auto;
+        order: -1;
+      }
+      .edu-card {
+        grid-template-columns: 1fr;
+        padding: 2rem;
+        gap: 1.5rem;
+      }
+      .edu-details {
+        border-left: none;
+        border-top: 1px solid var(--border-subtle);
+        padding-left: 0;
+        padding-top: 1.5rem;
+      }
+      .hobbies-grid {
+        grid-template-columns: 1fr;
+      }
+      .hobby-card:nth-child(n) {
+        grid-column: span 1;
+      }
+      footer {
+        flex-direction: column;
+        gap: 0.75rem;
+        text-align: center;
+        margin-top: 2rem;
+      }
+    }
+  </style>
 </head>
-<body class="bg-cream text-charcoal dark:bg-darkBg dark:text-[#F3F2EE] font-sans antialiased transition-colors duration-300 selection:bg-champagne selection:text-white">
+<body>
 
-    <!-- Thông báo Toast (thay thế alert) -->
-    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
-        <div class="bg-charcoal dark:bg-champagne text-cream dark:text-charcoal px-5 py-3 rounded-xl shadow-lg flex items-center gap-3 text-sm font-medium border border-champagne/30">
-            <i class="fa-solid fa-circle-check text-champagne dark:text-charcoal"></i>
-            <span id="toast-message">Đã sao chép địa chỉ email!</span>
-        </div>
-    </div>
+  <!-- Thanh điều hướng tối giản -->
+  <header>
+    <a href="#slide-1" class="logo">AN.</a>
+    <nav>
+      <ul>
+        <li><a href="#slide-1" class="nav-link active">Giới thiệu</a></li>
+        <li><a href="#slide-2" class="nav-link">Học vấn</a></li>
+        <li><a href="#slide-3" class="nav-link">Sở thích</a></li>
+        <li><a href="#slide-4" class="nav-link">Liên hệ</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <!-- Sticky Header -->
-    <header id="navbar" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 bg-cream/85 dark:bg-darkBg/85 backdrop-blur-md border-b border-charcoal/5 dark:border-white/5">
-        <div class="max-w-6xl mx-auto px-5 sm:px-8 h-20 flex items-center justify-between">
-            <!-- Logo -->
-            <a href="#home" class="font-serif text-2xl tracking-wider font-medium text-charcoal dark:text-cream hover:text-champagne dark:hover:text-champagne transition-colors">
-                H.T.A.N<span class="text-champagne">.</span>
-            </a>
+  <!-- Chấm chỉ mục bên phải -->
+  <div class="slide-dots" aria-label="Điều hướng trang">
+    <button class="dot active" data-target="slide-1" title="Giới thiệu"></button>
+    <button class="dot" data-target="slide-2" title="Học vấn"></button>
+    <button class="dot" data-target="slide-3" title="Sở thích"></button>
+    <button class="dot" data-target="slide-4" title="Liên hệ"></button>
+  </div>
 
-            <!-- Desktop Navigation -->
-            <nav class="hidden md:flex items-center gap-9 text-xs uppercase tracking-[0.18em] font-medium">
-                <a href="#home" class="hover:text-champagne transition-colors py-2">Giới thiệu</a>
-                <a href="#about" class="hover:text-champagne transition-colors py-2">Học vấn</a>
-                <a href="#interests" class="hover:text-champagne transition-colors py-2">Sở thích</a>
-                <a href="#contact" class="hover:text-champagne transition-colors py-2">Liên hệ</a>
-            </nav>
+  <!-- Nội dung chính dạng Full-page Slides -->
+  <main class="slides-container" id="slidesContainer">
 
-            <!-- Controls: Dark Mode & Mobile Menu -->
-            <div class="flex items-center gap-3">
-                <button id="theme-toggle" aria-label="Chuyển đổi chế độ Sáng/Tối" class="w-10 h-10 rounded-full border border-charcoal/15 dark:border-white/15 flex items-center justify-center hover:border-champagne dark:hover:border-champagne hover:text-champagne transition-all">
-                    <i id="theme-icon" class="fa-regular fa-moon text-sm"></i>
-                </button>
-                
-                <button id="mobile-menu-btn" aria-label="Mở menu" class="md:hidden w-10 h-10 rounded-full border border-charcoal/15 dark:border-white/15 flex items-center justify-center hover:border-champagne transition-all">
-                    <i class="fa-solid fa-bars text-sm"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- Mobile Dropdown Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-cream dark:bg-darkBg border-b border-charcoal/10 dark:border-white/10 px-6 py-5">
-            <div class="flex flex-col space-y-4 text-xs uppercase tracking-[0.18em] font-medium">
-                <a href="#home" class="mobile-link py-2 hover:text-champagne transition-colors">Giới thiệu</a>
-                <a href="#about" class="mobile-link py-2 hover:text-champagne transition-colors">Học vấn</a>
-                <a href="#interests" class="mobile-link py-2 hover:text-champagne transition-colors">Sở thích</a>
-                <a href="#contact" class="mobile-link py-2 hover:text-champagne transition-colors">Liên hệ</a>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main>
-        <!-- 1. Hero Section -->
-        <section id="home" class="pt-32 pb-20 md:pt-40 md:pb-28 px-5 sm:px-8 max-w-6xl mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
-                
-                <!-- Cột Trái: Thông tin giới thiệu -->
-                <div class="lg:col-span-7 space-y-6 text-center lg:text-left order-2 lg:order-1">
-                    <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-champagne/40 bg-champagne/10 text-xs uppercase tracking-[0.2em] text-champagneDark dark:text-champagne font-medium">
-                        <span class="w-1.5 h-1.5 rounded-full bg-champagne"></span>
-                        Personal Portfolio
-                    </div>
-                    
-                    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal leading-[1.15] tracking-tight">
-                        Xin chào, mình là <br>
-                        <span class="italic font-normal text-charcoal dark:text-white">Hồ Thị Ánh Ngọc</span>
-                    </h1>
-                    
-                    <p class="text-base sm:text-lg text-charcoal/75 dark:text-white/70 max-w-xl mx-auto lg:mx-0 leading-relaxed font-light">
-                        Học sinh lớp <strong class="font-medium text-charcoal dark:text-white">11T1 – Trường THPT Chuyên Bến Tre</strong>. Yêu thích sự tinh tế trong nghệ thuật, sự bình yên của những trang sách và luôn không ngừng khám phá thế giới quanh mình.
-                    </p>
-                    
-                    <div class="pt-3 flex flex-wrap items-center justify-center lg:justify-start gap-4">
-                        <a href="#about" class="px-7 py-3.5 rounded-xl bg-charcoal dark:bg-champagne text-cream dark:text-charcoal text-xs uppercase tracking-[0.16em] font-medium hover:bg-champagne dark:hover:bg-champagneDark hover:text-white transition-all shadow-sm">
-                            Khám phá thêm
-                        </a>
-                        <a href="#contact" class="px-7 py-3.5 rounded-xl border border-charcoal/20 dark:border-white/20 text-xs uppercase tracking-[0.16em] font-medium hover:border-champagne hover:text-champagne transition-all">
-                            Kết nối ngay
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Cột Phải: Khung Ảnh Chân Dung Bo Góc Viền Đôi -->
-                <div class="lg:col-span-5 flex flex-col items-center order-1 lg:order-2">
-                    <div class="relative group w-64 sm:w-72 md:w-80">
-                        <!-- Khung viền ngoài sang trọng -->
-                        <div class="absolute -inset-3 rounded-[2rem] border border-champagne/60 pointer-events-none transition-transform duration-500 group-hover:scale-[1.02]"></div>
-                        <!-- Khung viền trong tạo hiệu ứng viền đôi -->
-                        <div class="relative rounded-[1.65rem] p-2 bg-white dark:bg-darkCard border border-champagne/40 shadow-xl overflow-hidden">
-                            <div class="aspect-[3/4] w-full rounded-[1.25rem] overflow-hidden bg-champagne/10 relative">
-                                <img 
-                                    id="portrait-img"
-                                    src="images:anh-chan-dung.jpg" 
-                                    onerror="this.onerror=null; this.src='https://placehold.co/600x800/EFECE6/1A1A1A?text=Ho+Thi+Anh+Ngoc';"
-                                    alt="Chân dung Hồ Thị Ánh Ngọc" 
-                                    class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                                >
-                                <!-- Nút thay ảnh nhanh khi di chuột -->
-                                <label for="upload-portrait" title="Thay đổi ảnh chân dung từ máy tính" class="cursor-pointer absolute bottom-3 right-3 w-10 h-10 rounded-full bg-cream/90 dark:bg-darkBg/90 backdrop-blur-sm text-charcoal dark:text-cream border border-champagne/40 flex items-center justify-center opacity-90 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity hover:bg-champagne hover:text-white shadow-md">
-                                    <i class="fa-solid fa-camera text-xs"></i>
-                                </label>
-                                <input type="file" id="upload-portrait" accept="image/*" class="hidden">
-                            </div>
-                        </div>
-                    </div>
-                    <span class="mt-5 text-[11px] uppercase tracking-[0.2em] text-charcoal/50 dark:text-white/40">
-                        Bến Tre • 26.05.2010
-                    </span>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- Đường kẻ phân cách mảnh -->
-        <div class="max-w-5xl mx-auto px-6">
-            <div class="h-px bg-gradient-to-r from-transparent via-champagne/40 to-transparent"></div>
+    <!-- SLIDE 1: GIỚI THIỆU -->
+    <section class="slide in-view" id="slide-1">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow reveal">Hồ sơ cá nhân</span>
+          <h1 class="hero-title reveal delay-1">Hồ Thị Ánh Ngọc</h1>
+          <div class="hero-meta reveal delay-2">
+            <span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              26 / 05 / 2010
+            </span>
+            <span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+              11 Toán 1 — THPT Chuyên Bến Tre
+            </span>
+          </div>
+          <p class="hero-desc reveal delay-2">
+            Xin chào, mình là Ánh Ngọc. Mình yêu thích sự tối giản, tinh tế và luôn tìm kiếm sự cân bằng giữa tư duy logic của Toán học với những cảm hứng nghệ thuật nhẹ nhàng trong cuộc sống hằng ngày.
+          </p>
+          <a href="#slide-2" class="btn-minimal reveal delay-3">
+            Khám phá thêm
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+          </a>
         </div>
 
-        <!-- 2. Giới thiệu & Học vấn Section -->
-        <section id="about" class="py-20 md:py-28 px-5 sm:px-8 max-w-5xl mx-auto">
-            <div class="text-center max-w-2xl mx-auto mb-14">
-                <p class="text-xs uppercase tracking-[0.22em] text-champagne font-medium mb-3">Hồ sơ cá nhân</p>
-                <h2 class="font-serif text-3xl sm:text-4xl font-normal">Giới thiệu & Học vấn</h2>
-            </div>
+        <div class="portrait-wrapper reveal delay-2">
+          <!-- Ảnh đại diện từ thư mục images/anh-chan-dung.jpg -->
+          <img 
+            src="images/anh-chan-dung.jpg" 
+            alt="Chân dung Hồ Thị Ánh Ngọc"
+            onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22533%22 viewBox=%220 0 400 533%22><rect width=%22400%22 height=%22533%22 fill=%22%23EFEFF2%22/><text x=%2250%25%22 y=%2248%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2216%22 fill=%22%23666666%22>Ảnh đại diện</text><text x=%2250%25%22 y=%2253%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22monospace%22 font-size=%2212%22 fill=%22%23999999%22>images/anh-chan-dung.jpg</text></svg>';"
+          />
+        </div>
+      </div>
+    </section>
 
-            <!-- 2 Thẻ thông tin chính -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-                <!-- Thẻ Ngày sinh -->
-                <div class="p-8 rounded-2xl bg-white dark:bg-darkCard border border-charcoal/8 dark:border-darkBorder shadow-sm hover:border-champagne/60 transition-all duration-300 flex items-start gap-5">
-                    <div class="w-12 h-12 rounded-xl bg-champagne/15 text-champagne flex items-center justify-center shrink-0 text-lg">
-                        <i class="fa-regular fa-calendar"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs uppercase tracking-[0.16em] text-charcoal/50 dark:text-white/50 mb-1">Ngày sinh</p>
-                        <h3 class="font-serif text-2xl font-normal mb-1">26 / 05 / 2010</h3>
-                        <p class="text-sm text-charcoal/70 dark:text-white/65 font-light">Cung Song Tử — Nhiệt huyết, tò mò và luôn trân trọng những điều giản dị.</p>
-                    </div>
-                </div>
-
-                <!-- Thẻ Học vấn -->
-                <div class="p-8 rounded-2xl bg-white dark:bg-darkCard border border-charcoal/8 dark:border-darkBorder shadow-sm hover:border-champagne/60 transition-all duration-300 flex items-start gap-5">
-                    <div class="w-12 h-12 rounded-xl bg-champagne/15 text-champagne flex items-center justify-center shrink-0 text-lg">
-                        <i class="fa-solid fa-graduation-cap"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs uppercase tracking-[0.16em] text-charcoal/50 dark:text-white/50 mb-1">Đơn vị học tập</p>
-                        <h3 class="font-serif text-2xl font-normal mb-1">Lớp 11T1</h3>
-                        <p class="text-sm text-charcoal/70 dark:text-white/65 font-light">Trường THPT Chuyên Bến Tre — Môi trường nuôi dưỡng tri thức và bản lĩnh.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Câu trích dẫn (Quote) -->
-            <div class="mt-12 p-8 sm:p-10 rounded-2xl bg-champagne/10 dark:bg-darkCard/60 border border-champagne/25 text-center relative">
-                <i class="fa-solid fa-quote-left text-2xl text-champagne/40 mb-4 block"></i>
-                <blockquote class="font-serif italic text-xl sm:text-2xl text-charcoal dark:text-cream/95 max-w-2xl mx-auto leading-relaxed">
-                    “Sự thanh lịch thực sự nằm ở tâm hồn biết trân trọng cái đẹp, sự kiên trì trong học tập và nét bình yên giữa nhịp sống hối hả.”
-                </blockquote>
-                <p class="mt-4 text-xs uppercase tracking-[0.2em] text-champagneDark dark:text-champagne font-medium">— Hồ Thị Ánh Ngọc</p>
-            </div>
-        </section>
-
-        <!-- Đường kẻ phân cách mảnh -->
-        <div class="max-w-5xl mx-auto px-6">
-            <div class="h-px bg-gradient-to-r from-transparent via-champagne/40 to-transparent"></div>
+    <!-- SLIDE 2: HỌC VẤN -->
+    <section class="slide slide-edu" id="slide-2">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">Hành trình tri thức</span>
+          <h2 class="section-title">Học vấn & Định hướng</h2>
         </div>
 
-        <!-- 3. Sở thích Section (Bento Grid Layout) -->
-        <section id="interests" class="py-20 md:py-28 px-5 sm:px-8 max-w-5xl mx-auto">
-            <div class="text-center max-w-2xl mx-auto mb-14">
-                <p class="text-xs uppercase tracking-[0.22em] text-champagne font-medium mb-3">Góc nhỏ bình yên</p>
-                <h2 class="font-serif text-3xl sm:text-4xl font-normal mb-3">Sở thích & Đam mê</h2>
-                <p class="text-sm sm:text-base text-charcoal/65 dark:text-white/60 font-light">Những điều giúp mình cân bằng cảm xúc, nuôi dưỡng tâm hồn và tái tạo năng lượng mỗi ngày.</p>
-            </div>
-
-            <!-- Bento Grid 5 thẻ -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-5">
-                
-                <!-- 1. Bơi lội (Span 3) -->
-                <div class="lg:col-span-3 group p-7 rounded-2xl bg-white dark:bg-darkCard border border-charcoal/8 dark:border-darkBorder hover:border-champagne transition-all duration-300 hover:-translate-y-1 shadow-sm flex flex-col justify-between min-h-[190px]">
-                    <div class="flex items-center justify-between mb-6">
-                        <div class="w-11 h-11 rounded-xl border border-champagne/40 text-champagne flex items-center justify-center group-hover:bg-champagne group-hover:text-white transition-colors">
-                            <i class="fa-solid fa-person-swimming text-lg"></i>
-                        </div>
-                        <span class="text-xs font-serif italic text-charcoal/40 dark:text-white/30">01</span>
-                    </div>
-                    <div>
-                        <h3 class="font-serif text-xl font-normal mb-1.5 group-hover:text-champagne transition-colors">Bơi lội</h3>
-                        <p class="text-sm text-charcoal/70 dark:text-white/65 font-light leading-relaxed">Cảm giác tự do, rèn luyện sự bền bỉ và thả trôi mọi căng thẳng trong làn nước mát.</p>
-                    </div>
-                </div>
-
-                <!-- 2. Vẽ tranh (Span 3) -->
-                <div class="lg:col-span-3 group p-7 rounded-2xl bg-white dark:bg-darkCard border border-charcoal/8 dark:border-darkBorder hover:border-champagne transition-all duration-300 hover:-translate-y-1 shadow-sm flex flex-col justify-between min-h-[190px]">
-                    <div class="flex items-center justify-between mb-6">
-                        <div class="w-11 h-11 rounded-xl border border-champagne/40 text-champagne flex items-center justify-center group-hover:bg-champagne group-hover:text-white transition-colors">
-                            <i class="fa-solid fa-palette text-lg"></i>
-                        </div>
-                        <span class="text-xs font-serif italic text-charcoal/40 dark:text-white/30">02</span>
-                    </div>
-                    <div>
-                        <h3 class="font-serif text-xl font-normal mb-1.5 group-hover:text-champagne transition-colors">Vẽ tranh</h3>
-                        <p class="text-sm text-charcoal/70 dark:text-white/65 font-light leading-relaxed">Lưu giữ thế giới qua góc nhìn nghệ thuật, sự tỉ mỉ và sắc màu cảm xúc trên từng nét cọ.</p>
-                    </div>
-                </div>
-
-                <!-- 3. Đọc sách (Span 2) -->
-                <div class="lg:col-span-2 group p-7 rounded-2xl bg-white dark:bg-darkCard border border-charcoal/8 dark:border-darkBorder hover:border-champagne transition-all duration-300 hover:-translate-y-1 shadow-sm flex flex-col justify-between min-h-[190px]">
-                    <div class="flex items-center justify-between mb-6">
-                        <div class="w-11 h-11 rounded-xl border border-champagne/40 text-champagne flex items-center justify-center group-hover:bg-champagne group-hover:text-white transition-colors">
-                            <i class="fa-solid fa-book-open text-base"></i>
-                        </div>
-                        <span class="text-xs font-serif italic text-charcoal/40 dark:text-white/30">03</span>
-                    </div>
-                    <div>
-                        <h3 class="font-serif text-xl font-normal mb-1.5 group-hover:text-champagne transition-colors">Đọc sách</h3>
-                        <p class="text-sm text-charcoal/70 dark:text-white/65 font-light leading-relaxed">Mở rộng chiều sâu tư duy và lắng nghe những câu chuyện truyền cảm hứng.</p>
-                    </div>
-                </div>
-
-                <!-- 4. Đi dạo (Span 2) -->
-                <div class="lg:col-span-2 group p-7 rounded-2xl bg-white dark:bg-darkCard border border-charcoal/8 dark:border-darkBorder hover:border-champagne transition-all duration-300 hover:-translate-y-1 shadow-sm flex flex-col justify-between min-h-[190px]">
-                    <div class="flex items-center justify-between mb-6">
-                        <div class="w-11 h-11 rounded-xl border border-champagne/40 text-champagne flex items-center justify-center group-hover:bg-champagne group-hover:text-white transition-colors">
-                            <i class="fa-solid fa-leaf text-base"></i>
-                        </div>
-                        <span class="text-xs font-serif italic text-charcoal/40 dark:text-white/30">04</span>
-                    </div>
-                    <div>
-                        <h3 class="font-serif text-xl font-normal mb-1.5 group-hover:text-champagne transition-colors">Đi dạo</h3>
-                        <p class="text-sm text-charcoal/70 dark:text-white/65 font-light leading-relaxed">Tận hưởng nhịp sống chậm rãi, hít thở khí trời và tìm kiếm sự tĩnh tại.</p>
-                    </div>
-                </div>
-
-                <!-- 5. Nghe nhạc (Span 2) -->
-                <div class="sm:col-span-2 lg:col-span-2 group p-7 rounded-2xl bg-white dark:bg-darkCard border border-charcoal/8 dark:border-darkBorder hover:border-champagne transition-all duration-300 hover:-translate-y-1 shadow-sm flex flex-col justify-between min-h-[190px]">
-                    <div class="flex items-center justify-between mb-6">
-                        <div class="w-11 h-11 rounded-xl border border-champagne/40 text-champagne flex items-center justify-center group-hover:bg-champagne group-hover:text-white transition-colors">
-                            <i class="fa-solid fa-headphones text-base"></i>
-                        </div>
-                        <span class="text-xs font-serif italic text-charcoal/40 dark:text-white/30">05</span>
-                    </div>
-                    <div>
-                        <h3 class="font-serif text-xl font-normal mb-1.5 group-hover:text-champagne transition-colors">Nghe nhạc</h3>
-                        <p class="text-sm text-charcoal/70 dark:text-white/65 font-light leading-relaxed">Những giai điệu nhẹ nhàng đồng hành trong lúc học bài và thư giãn.</p>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-    </main>
-
-    <!-- 4. Footer & Liên hệ (Facebook & Email) -->
-    <footer id="contact" class="bg-charcoal text-cream dark:bg-[#0D0D0D] border-t border-white/10 pt-20 pb-12 px-5 sm:px-8">
-        <div class="max-w-4xl mx-auto text-center">
-            <p class="text-xs uppercase tracking-[0.25em] text-champagne font-medium mb-3">Liên hệ</p>
-            <h2 class="font-serif text-3xl sm:text-4xl font-normal text-white mb-4">Kết nối với Ánh Ngọc</h2>
-            <p class="text-sm sm:text-base text-cream/70 font-light max-w-lg mx-auto mb-10">
-                Cảm ơn bạn đã ghé thăm góc nhỏ của mình. Đừng ngần ngại kết nối hoặc gửi lời nhắn cho mình qua Facebook hoặc Email dưới đây nhé!
+        <div class="edu-card reveal delay-1">
+          <div>
+            <span class="edu-badge">Hiện tại</span>
+            <h3 class="edu-school">Trường THPT Chuyên Bến Tre</h3>
+            <p class="edu-class">Lớp Chuyên 11 Toán 1</p>
+          </div>
+          <div class="edu-details">
+            <p>
+              Học tập trong môi trường chuyên Toán giúp mình rèn luyện tư duy phân tích mạch lạc, khả năng giải quyết vấn đề và sự kiên trì trước những thử thách mới. Bên cạnh việc học trên lớp, mình luôn chủ động trau dồi ngoại ngữ và kỹ năng sáng tạo.
             </p>
-
-            <!-- Hai thẻ liên kết nổi bật: Facebook và Email -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto mb-14">
-                
-                <!-- Link Facebook -->
-                <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" class="group p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-champagne hover:bg-white/10 transition-all duration-300 flex items-center justify-between text-left">
-                    <div class="flex items-center gap-4">
-                        <div class="w-11 h-11 rounded-xl bg-champagne/20 text-champagne flex items-center justify-center text-lg group-hover:bg-champagne group-hover:text-charcoal transition-colors">
-                            <i class="fa-brands fa-facebook-f"></i>
-                        </div>
-                        <div>
-                            <span class="block text-[11px] uppercase tracking-[0.15em] text-cream/50">Facebook</span>
-                            <span class="font-medium text-sm sm:text-base text-white group-hover:text-champagne transition-colors">Hồ Thị Ánh Ngọc</span>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-arrow-up-right-from-square text-xs text-cream/40 group-hover:text-champagne transition-colors"></i>
-                </a>
-
-                <!-- Link Email + Nút sao chép nhanh -->
-                <div class="group p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-champagne hover:bg-white/10 transition-all duration-300 flex items-center justify-between text-left">
-                    <a href="mailto:hothianhngoc2605@gmail.com" class="flex items-center gap-4 flex-1 min-w-0">
-                        <div class="w-11 h-11 rounded-xl bg-champagne/20 text-champagne flex items-center justify-center text-lg shrink-0 group-hover:bg-champagne group-hover:text-charcoal transition-colors">
-                            <i class="fa-regular fa-envelope"></i>
-                        </div>
-                        <div class="truncate">
-                            <span class="block text-[11px] uppercase tracking-[0.15em] text-cream/50">Email</span>
-                            <span id="email-text" class="font-medium text-sm sm:text-base text-white group-hover:text-champagne transition-colors truncate block">hothianhngoc2605@gmail.com</span>
-                        </div>
-                    </a>
-                    <button id="copy-email-btn" title="Sao chép địa chỉ Email" class="ml-3 w-9 h-9 rounded-lg border border-white/15 hover:border-champagne text-cream/70 hover:text-champagne flex items-center justify-center transition-colors shrink-0">
-                        <i class="fa-regular fa-copy text-xs"></i>
-                    </button>
-                </div>
-
+            <div class="edu-tags">
+              <span class="tag">Tư duy Logic</span>
+              <span class="tag">Chuyên Toán</span>
+              <span class="tag">Sáng tạo & Thẩm mỹ</span>
+              <span class="tag">Học hỏi không ngừng</span>
             </div>
-
-            <!-- Chân trang bản quyền -->
-            <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-cream/50">
-                <span class="font-serif text-base text-cream/80 tracking-wider">H.T.A.N<span class="text-champagne">.</span></span>
-                <p>&copy; 2026 Hồ Thị Ánh Ngọc. All rights reserved.</p>
-            </div>
+          </div>
         </div>
-    </footer>
+      </div>
+    </section>
 
-    <!-- JavaScript Tương tác -->
-    <script>
-        // 1. Chuyển đổi chế độ Sáng / Tối (Light / Dark Mode)
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const themeIcon = document.getElementById('theme-icon');
-        const htmlElement = document.documentElement;
+    <!-- SLIDE 3: SỞ THÍCH -->
+    <section class="slide" id="slide-3">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">Góc nhỏ bình yên</span>
+          <h2 class="section-title">Sở thích cá nhân</h2>
+        </div>
 
-        // Kiểm tra cài đặt đã lưu hoặc mặc định Light Mode sang trọng
-        if (localStorage.getItem('theme') === 'dark') {
-            htmlElement.classList.add('dark');
-            themeIcon.classList.replace('fa-moon', 'fa-sun');
+        <div class="hobbies-grid">
+          <!-- 1. Bơi lội -->
+          <div class="hobby-card reveal delay-1">
+            <div>
+              <div class="hobby-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 16c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2"></path><path d="M2 20c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2"></path><circle cx="16" cy="7" r="2"></circle><path d="M7 12l4-3 3 2 3-1"></path></svg>
+              </div>
+              <h3 class="hobby-title">Bơi lội</h3>
+              <p class="hobby-desc">Rèn luyện sức khỏe dẻo dai và thả lỏng tâm trí trong làn nước mát sau những giờ học tập trung.</p>
+            </div>
+          </div>
+
+          <!-- 2. Vẽ tranh -->
+          <div class="hobby-card reveal delay-1">
+            <div>
+              <div class="hobby-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
+              </div>
+              <h3 class="hobby-title">Vẽ tranh</h3>
+              <p class="hobby-desc">Lưu giữ những khoảnh khắc đẹp và thể hiện góc nhìn thẩm mỹ qua từng đường nét, mảng màu.</p>
+            </div>
+          </div>
+
+          <!-- 3. Đọc sách -->
+          <div class="hobby-card reveal delay-2">
+            <div>
+              <div class="hobby-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+              </div>
+              <h3 class="hobby-title">Đọc sách</h3>
+              <p class="hobby-desc">Mở rộng thế giới quan, nuôi dưỡng chiều sâu tâm hồn và tìm thấy những khoảng lặng giàu cảm hứng.</p>
+            </div>
+          </div>
+
+          <!-- 4. Đi dạo -->
+          <div class="hobby-card reveal delay-2">
+            <div>
+              <div class="hobby-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+              </div>
+              <h3 class="hobby-title">Đi dạo</h3>
+              <p class="hobby-desc">Tận hưởng nhịp sống chậm rãi, hít thở không khí trong lành và quan sát những điều bình dị xung quanh.</p>
+            </div>
+          </div>
+
+          <!-- 5. Nghe nhạc -->
+          <div class="hobby-card reveal delay-3">
+            <div>
+              <div class="hobby-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+              </div>
+              <h3 class="hobby-title">Nghe nhạc</h3>
+              <p class="hobby-desc">Những giai điệu nhẹ nhàng luôn là người bạn đồng hành giúp mình cân bằng cảm xúc và khơi nguồn sáng tạo.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: LIÊN HỆ & THÔNG TIN CÁ NHÂN -->
+    <section class="slide slide-contact" id="slide-4">
+      <div class="contact-wrapper">
+        <span class="eyebrow reveal">Kết nối</span>
+        <h2 class="contact-title reveal delay-1">Thông tin liên hệ</h2>
+        <p class="contact-subtitle reveal delay-1">
+          Rất vui được làm quen và kết nối cùng bạn qua email hoặc các trang mạng xã hội bên dưới.
+        </p>
+
+        <!-- Tóm tắt thông tin cá nhân -->
+        <div class="info-summary reveal delay-2">
+          <div><strong>Họ tên:</strong> <span>Hồ Thị Ánh Ngọc</span></div>
+          <div><strong>Ngày sinh:</strong> <span>26/05/2010</span></div>
+          <div><strong>Trường:</strong> <span>11 Toán 1 — THPT Chuyên Bến Tre</span></div>
+        </div>
+
+        <!-- Hộp Email + Nút sao chép -->
+        <div class="reveal delay-2">
+          <div class="email-box">
+            <a href="mailto:hothianhngoc26.05@gmail.com" class="email-text" id="emailText">
+              hothianhngoc26.05@gmail.com
+            </a>
+            <button type="button" class="btn-copy" id="copyEmailBtn">Sao chép</button>
+          </div>
+        </div>
+
+        <!-- Liên kết mạng xã hội (Bạn có thể thay href="#" bằng link cá nhân của mình) -->
+        <div class="social-links reveal delay-3">
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+            Facebook
+          </a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            Instagram
+          </a>
+          <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="social-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
+            TikTok
+          </a>
+        </div>
+      </div>
+
+      <footer>
+        <span>© 2026 Hồ Thị Ánh Ngọc. All rights reserved.</span>
+        <a href="#slide-1" class="back-top">↑ Lên đầu trang</a>
+      </footer>
+    </section>
+
+  </main>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const dots = document.querySelectorAll('.dot');
+    const copyBtn = document.getElementById('copyEmailBtn');
+    const emailText = document.getElementById('emailText').innerText.trim();
+
+    // Theo dõi slide đang hiển thị để kích hoạt hiệu ứng và chấm điều hướng
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          const id = entry.target.getAttribute('id');
+
+          navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+          });
+
+          dots.forEach(dot => {
+            dot.classList.toggle('active', dot.dataset.target === id);
+          });
         }
+      });
+    }, { threshold: 0.45 });
 
-        themeToggleBtn.addEventListener('click', () => {
-            htmlElement.classList.toggle('dark');
-            const isDark = htmlElement.classList.contains('dark');
-            
-            if (isDark) {
-                themeIcon.classList.replace('fa-moon', 'fa-sun');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                themeIcon.classList.replace('fa-sun', 'fa-moon');
-                localStorage.setItem('theme', 'light');
-            }
-        });
+    slides.forEach(slide => observer.observe(slide));
 
-        // 2. Menu trên điện thoại (Mobile Menu)
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
-
-        // 3. Hiển thị thông báo Toast
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            const toastMsg = document.getElementById('toast-message');
-            toastMsg.textContent = message;
-            
-            toast.classList.remove('translate-y-20', 'opacity-0');
-            setTimeout(() => {
-                toast.classList.add('translate-y-20', 'opacity-0');
-            }, 3000);
+    // Bấm vào chấm tròn bên phải để chuyển slide mượt mà
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const target = document.getElementById(dot.dataset.target);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
         }
+      });
+    });
 
-        // 4. Sao chép địa chỉ Email nhanh
-        const copyEmailBtn = document.getElementById('copy-email-btn');
-        const emailText = document.getElementById('email-text');
-
-        copyEmailBtn.addEventListener('click', () => {
-            const textToCopy = emailText.textContent.trim();
-            const tempInput = document.createElement('input');
-            tempInput.value = textToCopy;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
-            
-            showToast('Đã sao chép địa chỉ email!');
-        });
-
-        // 5. Cho phép tải ảnh chân dung mới trực tiếp từ máy tính (nếu muốn thay đổi)
-        const uploadInput = document.getElementById('upload-portrait');
-        const portraitImg = document.getElementById('portrait-img');
-
-        uploadInput.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    portraitImg.src = e.target.result;
-                    showToast('Đã cập nhật ảnh chân dung mới!');
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-    </script>
+    // Chức năng sao chép nhanh địa chỉ email
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(emailText).then(() => {
+        const originalText = copyBtn.innerText;
+        copyBtn.innerText = 'Đã sao chép ✓';
+        setTimeout(() => {
+          copyBtn.innerText = originalText;
+        }, 2000);
+      });
+    });
+  </script>
 </body>
 </html>
